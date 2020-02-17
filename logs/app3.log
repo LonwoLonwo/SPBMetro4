@@ -1,0 +1,2 @@
+2020-02-17 11:51:33.539 [main] ERROR  - Error: java.nio.file.NoSuchFileException: F:\Java Projects\SPBMetro4\SPBMetro\src\main\resources\map1.json
+2020-02-17 12:09:14.474 [main] ERROR  - JSON Error: java.nio.file.NoSuchFileException: F:\Java Projects\SPBMetro4\SPBMetro\src\main\resources\map1.json

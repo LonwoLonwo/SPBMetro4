@@ -5,32 +5,10 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!--<RollingFile name="errorLog" fileName="logs/app4.log"
-                     filePattern="${APP_LOG_ROOT}/app-error-%d{yyyy-MM-dd}-%i.log" >
-            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
-            </Policies>
-        </RollingFile>-->
-
-        <RollingFile name="ErrorFile" fileName="logs/app3.log"
-                     filePattern="logs/app-%d{MM-dd-yyyy}.log.gz">
-            <MarkerFilter marker="FLOW" onMatch="ACCEPT" onMismatch="DENY"/>
-            <PatternLayout>
-                <pattern>%d %p %c{1.} [%t] %m%n</pattern>
-            </PatternLayout>
-            <TimeBasedTriggeringPolicy />
-        </RollingFile>
-
-        <!--Ошибки
-        <File name="errorLog" fileName="logs/app3.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-            <MarkerFilter marker="tp-count" onMatch="ACCEPT" onMismatch="DENY"/>
-        </File>-->
-
         <!--Ошибочно введённые станции-->
         <File name="MyFile" fileName="logs/app.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <MarkerFilter marker="ErStation" onMatch="ACCEPT" onMismatch="DENY"/>
         </File>
 
         <!--Все станции, введённые в консоль-->
@@ -38,18 +16,18 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
 
+        <!--Ошибки-->
+        <File name="errorLog" fileName="logs/app3.log">
+        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
 
     </appenders>
 
-
     <loggers>
-        <Logger name="com.anvolka.log4j2" level="error" additivity="false">
-        <appender-ref ref="ErrorFile"/>
-        </Logger>
         <root level="debug">
-            <!--<appender-ref ref="ErrorFile" level="error"/>-->
             <appender-ref ref="MyFile" level="info"/>
             <appender-ref ref="MyFile2" level="debug"/>
+            <appender-ref ref="errorLog" level="error"/>
         </root>
     </loggers>
 </configuration>

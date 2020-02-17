@@ -25,10 +25,11 @@ public class Main
 
     public static void main(String[] args)
     {
-        RouteCalculator calculator = getRouteCalculator();
         logger = LogManager.getRootLogger();
+        RouteCalculator calculator = getRouteCalculator();
+
         logger.traceEntry();
-        marker = MarkerManager.getMarker("FLOW");
+        marker = MarkerManager.getMarker("ErStation");
 
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
         scanner = new Scanner(System.in);
@@ -46,7 +47,7 @@ public class Main
                     RouteCalculator.calculateDuration(route) + " минут");
             }
         } catch (Exception e) {
-            logger.error(e);
+            logger.error("Main Error " + e);
             e.printStackTrace();
         }
     }
@@ -88,7 +89,7 @@ public class Main
                 logger.debug(line);
                 return station;
             }
-            logger.info("Станция не найдена: " + line);
+            logger.info(marker,"Станция не найдена: " + line);
             System.out.println("Станция не найдена :(");
         }
     }
@@ -175,8 +176,8 @@ public class Main
             lines.forEach(line -> builder.append(line));
         }
         catch (Exception ex) {
-            logger.error(marker, "Error: " + ex);
             ex.printStackTrace();
+            logger.error("JSON Error: " + ex);
         }
         return builder.toString();
     }
